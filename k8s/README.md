@@ -12,12 +12,131 @@ This guide explains how to deploy the Price List Search application to a Kuberne
 ## Directory Structure
 
 ```
-k8s/
-├── deployment.yaml   # Deployment configuration
-├── service.yaml      # Service configuration
-├── ingress.yaml     # Ingress configuration
-└── README.md        # This file
+/
+├── src/                    # Application source code
+│   ├── app/               # Next.js app directory
+│   │   ├── page.tsx      # Main page component
+│   │   ├── layout.tsx    # Root layout
+│   │   └── globals.css   # Global styles
+│   ├── components/       # React components
+│   │   ├── ExcelSearchComponent.tsx  # Main search component
+│   │   └── ui/          # UI components
+│   └── lib/             # Utility functions
+│       └── excel.ts     # Excel parsing logic
+├── k8s/                 # Kubernetes configurations
+│   ├── deployment.yaml  # Deployment configuration
+│   ├── service.yaml     # Service configuration
+│   ├── ingress.yaml    # Ingress configuration
+│   └── README.md       # This file
+├── public/             # Static files
+├── Dockerfile          # Container configuration
+├── package.json        # Project dependencies
+└── next.config.ts     # Next.js configuration
 ```
+
+## Application Setup
+
+### Requirements
+
+- Node.js 18.x or later
+- npm 9.x or later
+- Git
+
+### Local Development Setup
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd price-list-search
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Create a `.env.local` file:
+   ```bash
+   # .env.local
+   PORT=8000
+   ```
+
+4. Development mode:
+   ```bash
+   npm run dev
+   # Application will be available at http://localhost:8000
+   ```
+
+5. Build for production:
+   ```bash
+   npm run build
+   ```
+
+6. Start production server:
+   ```bash
+   npm start
+   ```
+
+### Environment Variables
+
+- `PORT`: Application port (default: 8000)
+
+### Application Components
+
+#### Main Components
+
+1. **Excel Search Component** (`src/components/ExcelSearchComponent.tsx`)
+   - Handles file upload and parsing
+   - Provides real-time search functionality
+   - Manages selected items and price calculations
+
+2. **Page Layout** (`src/app/page.tsx`)
+   - Main application layout
+   - Header and footer components
+   - Container for the Excel search component
+
+3. **Excel Parser** (`src/lib/excel.ts`)
+   - Handles Excel file parsing
+   - Converts Excel data to JSON format
+   - Validates file format and content
+
+#### Key Features
+
+- Real-time search through Excel data
+- Drag and drop file upload
+- Price list item selection
+- Total price calculation
+- Responsive design
+- Accessibility support
+
+### Testing
+
+Run the test suite:
+```bash
+npm test
+```
+
+Run tests in watch mode:
+```bash
+npm run test:watch
+```
+
+### Development Guidelines
+
+1. Code Style
+   - Follow TypeScript best practices
+   - Use ESLint for code linting
+   - Follow Next.js 13+ conventions
+
+2. Component Structure
+   - Keep components focused and single-responsibility
+   - Use TypeScript interfaces for props
+   - Implement proper error handling
+
+3. Performance
+   - Implement proper memoization where needed
+   - Use proper loading states
+   - Handle large datasets efficiently
 
 ## Deployment Steps
 
